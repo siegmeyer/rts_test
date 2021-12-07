@@ -49,14 +49,17 @@ BYTE *LoadFileToMem(const char *fileName)
 		cell_inc++;
 
 		if (in == '\n' || in == EOF) {
-			table[row_inc] = (char**) malloc(sizeof(char**) * cell_inc);
-			memcpy (table[row_inc], row, sizeof(char**) * cell_inc);
+			
+			if (row_inc == 0)
+				cell_max = cell_inc;
+
+			table[row_inc] = (char**) malloc(sizeof(char**) * cell_max);
+			memcpy (table[row_inc], row, sizeof(char**) * cell_max);
 			row_inc++;
 
-			if (cell_inc > cell_max) 
-				cell_max = cell_inc;
-			
 			cell_inc = 0;
+			// reset the row
+			memset(row, 0, sizeof(char*) * cell_max);
 		}
 		
 	} while(!feof(file));
