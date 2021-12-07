@@ -1,0 +1,5 @@
+/build
+*.swp
+.~
+thumbs.db
+.DS_Store
