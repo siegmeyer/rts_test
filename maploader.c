@@ -5,9 +5,10 @@ BYTE *LoadFileToMem(const char *fileName)
 	FILE *file;
 	BYTE *buf;
 	int in;
-	char **row;
-	int line_inc = 0;
-	int word_inc = 0;
+
+	int row_inc = 0;
+	int cell_inc = 0;
+	int cell_max = 0;
 	ItemList *list;
 
 	file = fopen(fileName, "r");
@@ -18,43 +19,59 @@ BYTE *LoadFileToMem(const char *fileName)
 
 	list = itemlist_create();
 
-	char *letter_buffer = (char*) malloc(sizeof(char)*255);
-	char **word_buffer = (char**) malloc(sizeof(char**)*25);
-	char ***line_buffer = (char***) malloc(sizeof(char***)*100);
+	char cell[255];
+	char **row = (char**) malloc(sizeof(char**)*25);
+	char ***table = (char***) malloc(sizeof(char***)*100);
 
 	int i = 0;
 	do {
+
 		in = fgetc(file);
-		// printf("%c", in);
-		if (in == '\t' || in == '\n') {
-			letter_buffer[i++] = '\0'; // finish the word
-			printf("%d", i);
-			word_buffer[word_inc] = (char*) malloc(sizeof(char) * i);
-			for (int k = 0; k < i; k++) {
-				word_buffer[word_inc][k] = letter_buffer[k];
-			}
-			printf("%s", word_buffer[word_inc]);
-			letter_buffer[0] = '\0';
-			i = 0;
-			word_inc++;
-
-			if (in == '\n') {
-				line_buffer[line_inc++] = (char**) malloc(sizeof(char**) * word_inc);
-				for (int j = 0; j < word_inc; j++) {
-					// line_buffer[line_inc] = word_buffer[j]
-				}
-			}
-
+		
+		//
+		// If normal character.
+		//
+		if (in != '\t' && in != '\n' && in != EOF) {
+			cell[i++] = in;
 			continue;
 		}
 
-		letter_buffer[i++] = in;
+		// Finish the word
+		cell[i++] = '\0';
+
+		// Prep memory for row then copy word in
+		row[cell_inc] = (char*) malloc(sizeof(char) * i);
+		memcpy(row[cell_inc], cell, i);
+
+		// "Erase" cell
+		cell[0] = '\0';
+		i = 0;
+		cell_inc++;
+
+		if (in == '\n' || in == EOF) {
+			table[row_inc] = (char**) malloc(sizeof(char**) * cell_inc);
+			memcpy (table[row_inc], row, sizeof(char**) * cell_inc);
+			row_inc++;
+
+			if (cell_inc > cell_max) 
+				cell_max = cell_inc;
+			
+			cell_inc = 0;
+		}
 		
 	} while(!feof(file));
+	
+	for (int a = 0; a < row_inc; a++) {
+		printf("\n");
+		for (int b = 0; b < cell_max; b++) {
+			// printf("%d-", b);
+			printf("%s\t", table[a][b]);
+		}
+	}
 
-	free(letter_buffer);
-	free(word_buffer);
-	free(line_buffer);
+	// free(cell);
+	free(row);
+	free(table);
 	
 
 // 	WOpenFile(pszName, &file, FALSE);

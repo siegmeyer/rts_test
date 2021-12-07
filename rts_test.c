@@ -6,7 +6,7 @@ int main() {
 
 	BYTE *file;
 
-	file = LoadFileToMem("data/test.dat");
+	file = LoadFileToMem("data/map.dat");
 
 	return 0;
 }

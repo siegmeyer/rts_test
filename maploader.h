@@ -8,5 +8,5 @@ typedef struct
 } MapData;
 
 BYTE *LoadFileToMem(const char *fileName);
-
+void ClearTableFromMem();
 #endif
