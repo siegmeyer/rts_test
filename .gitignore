@@ -1,4 +1,11 @@
-/build
+*
+!.gitignore
+!src
+!src/*
+!data
+!data/*
+
+
 *.swp
 .~
 thumbs.db
