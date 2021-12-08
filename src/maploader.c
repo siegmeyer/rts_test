@@ -1,10 +1,9 @@
 #include "all.h"
 
-BYTE *LoadFileToMem(const char *fileName)
+BYTE ***LoadFileToMem(const char *fileName)
 {
 	FILE *file;
-	BYTE *buf;
-	int in;
+	BYTE in;
 
 	int row_inc = 0;
 	int cell_inc = 0;
@@ -19,14 +18,14 @@ BYTE *LoadFileToMem(const char *fileName)
 
 	list = itemlist_create();
 
-	char cell[255];
-	char **row = (char**) malloc(sizeof(char**)*25);
-	char ***table = (char***) malloc(sizeof(char***)*100);
+	BYTE cell[255];
+	BYTE **row = (BYTE**)malloc(sizeof(BYTE**)* 25);
+	BYTE ***table = (BYTE***)malloc(sizeof(BYTE***)* 100);
 
 	int i = 0;
 	do {
 
-		in = fgetc(file);
+		in = (BYTE)fgetc(file);
 		
 		//
 		// If normal character.
@@ -40,7 +39,7 @@ BYTE *LoadFileToMem(const char *fileName)
 		cell[i++] = '\0';
 
 		// Prep memory for row then copy word in
-		row[cell_inc] = (char*) malloc(sizeof(char) * i);
+		row[cell_inc] = (BYTE*)malloc(sizeof(BYTE)* i);
 		memcpy(row[cell_inc], cell, i);
 
 		// "Erase" cell
@@ -53,44 +52,38 @@ BYTE *LoadFileToMem(const char *fileName)
 			if (row_inc == 0)
 				cell_max = cell_inc;
 
-			table[row_inc] = (char**) malloc(sizeof(char**) * cell_max);
-			memcpy (table[row_inc], row, sizeof(char**) * cell_max);
+			table[row_inc] = (BYTE**)malloc(sizeof(BYTE**)* cell_max);
+			memcpy(table[row_inc], row, sizeof(BYTE**)* cell_max);
 			row_inc++;
 
 			cell_inc = 0;
 			// reset the row
-			memset(row, 0, sizeof(char*) * cell_max);
+			memset(row, 0, sizeof(BYTE*)* cell_max);
 		}
 		
 	} while(!feof(file));
 	
+	
+
 	for (int a = 0; a < row_inc; a++) {
 		printf("\n");
+		//printf("%d", a);
 		for (int b = 0; b < cell_max; b++) {
 			// printf("%d-", b);
 			printf("%s\t", table[a][b]);
 		}
 	}
 
+	printf("done\n");
+	
+	char* temp;
+	scanf(&temp);
+
 	// free(cell);
 	free(row);
 	free(table);
 	
-
-// 	WOpenFile(pszName, &file, FALSE);
-// 	fileLen = WGetFileSize(file, NULL);
-
-// 	if (pdwFileLen)
-// 		*pdwFileLen = fileLen;
-
-// 	if (!fileLen)
-// 		app_fatal("Zero length SFILE:\n%s", pszName);
-
-// 	buf = (BYTE *)DiabloAllocPtr(fileLen);
-
-// 	WReadFile(file, buf, fileLen);
-// 	WCloseFile(file);
 	fclose(file);
 
-	return buf;
+	return table;
 }

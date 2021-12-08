@@ -4,7 +4,7 @@ int main() {
 	
 	//MAPDATA* map;
 
-	BYTE *file;
+	BYTE ***file;
 
 	file = LoadFileToMem("data/map.dat");
 

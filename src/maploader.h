@@ -7,6 +7,6 @@ typedef struct
 	short 	height;
 } MapData;
 
-BYTE *LoadFileToMem(const char *fileName);
+BYTE ***LoadFileToMem(const char *fileName);
 void ClearTableFromMem();
 #endif
