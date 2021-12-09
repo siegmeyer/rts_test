@@ -5,6 +5,7 @@ typedef struct
 {
 	short 	width;
 	short 	height;
+	BYTE	***data;
 } MapData;
 
 BYTE ***LoadFileToMem(const char *fileName);

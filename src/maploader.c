@@ -3,7 +3,7 @@
 BYTE ***LoadFileToMem(const char *fileName)
 {
 	FILE *file;
-	BYTE in;
+	int in;
 
 	int row_inc = 0;
 	int cell_inc = 0;
@@ -25,17 +25,19 @@ BYTE ***LoadFileToMem(const char *fileName)
 	int i = 0;
 	do {
 
-		in = (BYTE)fgetc(file);
+		in = fgetc(file);
 		
 		//
 		// If normal character.
 		//
 		if (in != '\t' && in != '\n' && in != EOF) {
-			cell[i++] = in;
+			cell[i++] = (BYTE)in;
 			continue;
 		}
 
-		// Finish the word
+		//
+		// Otherwise, a cell has been completed.
+		//
 		cell[i++] = '\0';
 
 		// Prep memory for row then copy word in
@@ -76,8 +78,10 @@ BYTE ***LoadFileToMem(const char *fileName)
 
 	printf("done\n");
 	
-	char* temp;
-	scanf(&temp);
+	char temp[20];
+	scanf("%s",&temp);
+
+	printf("%s\n", temp);
 
 	// free(cell);
 	free(row);
