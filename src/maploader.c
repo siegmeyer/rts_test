@@ -1,14 +1,14 @@
 #include "all.h"
 
-BYTE ***LoadFileToMem(const char *fileName)
+char ***LoadTableToMem(const char *fileName)
 {
 	FILE *file;
 	int in;
 
 	int row_inc = 0;
 	int cell_inc = 0;
-	int cell_max = 0;
-	ItemList *list;
+	size_t cell_max = 0;
+	Table *tbl;
 
 	file = fopen(fileName, "r");
 	if (file == NULL) {
@@ -16,11 +16,11 @@ BYTE ***LoadFileToMem(const char *fileName)
 		return NULL;
 	}
 
-	list = itemlist_create();
+	tbl = table_create();
 
-	BYTE cell[255];
-	BYTE **row = (BYTE**)malloc(sizeof(BYTE**)* 25);
-	BYTE ***table = (BYTE***)malloc(sizeof(BYTE***)* 100);
+	char cell[NUM_CHARS];
+	char **row = (char**)malloc(sizeof(char**) * NUM_COLS);
+	char ***table = (char***)malloc(sizeof(char***) * NUM_ROWS);
 
 	int i = 0;
 	do {
@@ -31,7 +31,7 @@ BYTE ***LoadFileToMem(const char *fileName)
 		// If normal character.
 		//
 		if (in != '\t' && in != '\n' && in != EOF) {
-			cell[i++] = (BYTE)in;
+			cell[i++] = (char)in;
 			continue;
 		}
 
@@ -41,7 +41,7 @@ BYTE ***LoadFileToMem(const char *fileName)
 		cell[i++] = '\0';
 
 		// Prep memory for row then copy word in
-		row[cell_inc] = (BYTE*)malloc(sizeof(BYTE)* i);
+		row[cell_inc] = (char*)malloc(sizeof(char) * i);
 		memcpy(row[cell_inc], cell, i);
 
 		// "Erase" cell
@@ -54,13 +54,13 @@ BYTE ***LoadFileToMem(const char *fileName)
 			if (row_inc == 0)
 				cell_max = cell_inc;
 
-			table[row_inc] = (BYTE**)malloc(sizeof(BYTE**)* cell_max);
-			memcpy(table[row_inc], row, sizeof(BYTE**)* cell_max);
+			table[row_inc] = (char**)malloc(sizeof(char**)* cell_max);
+			memcpy(table[row_inc], row, sizeof(char**)* cell_max);
 			row_inc++;
 
 			cell_inc = 0;
 			// reset the row
-			memset(row, 0, sizeof(BYTE*)* cell_max);
+			memset(row, 0, sizeof(char*)* cell_max);
 		}
 		
 	} while(!feof(file));
@@ -76,16 +76,23 @@ BYTE ***LoadFileToMem(const char *fileName)
 		}
 	}
 
+	for (int a = 0; a < row_inc; a++) {
+		for (int b = 0; b < cell_max; b++) {
+			free(table[a][b]);
+		}
+		free(table[a]);
+	}
+
+	free(row);
+	free(table);
+
 	printf("done\n");
 	
 	char temp[20];
-	scanf("%s",&temp);
+	scanf("%s", temp);
 
 	printf("%s\n", temp);
 
-	// free(cell);
-	free(row);
-	free(table);
 	
 	fclose(file);
 

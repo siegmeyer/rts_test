@@ -1,2 +1,3 @@
-id	type	name	hp
-1	head	Skullet	25
+id	name	is_air	size	health	shield	energy
+1	marine	0	1	45	0	0
+2	firebat	0	1	50	0	0

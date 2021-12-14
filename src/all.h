@@ -5,6 +5,6 @@
 
 #include "defs.h"
 #include "maploader.h"
-#include "item.h"
+#include "table.h"
 
 #endif
