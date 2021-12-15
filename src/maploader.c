@@ -51,11 +51,21 @@ char ***LoadTableToMem(const char *fileName)
 
 		if (in == '\n' || in == EOF) {
 			
-			if (row_inc == 0)
+			if (row_inc == 0){
 				cell_max = cell_inc;
+			}
+
 
 			table[row_inc] = (char**)malloc(sizeof(char**)* cell_max);
 			memcpy(table[row_inc], row, sizeof(char**)* cell_max);
+
+			if (row_inc == 0) {
+				table_header_add(tbl, table[row_inc], cell_max);
+			} 
+			else {
+				table_row_add(tbl, table[row_inc], cell_max);
+			}
+
 			row_inc++;
 
 			cell_inc = 0;
@@ -65,16 +75,8 @@ char ***LoadTableToMem(const char *fileName)
 		
 	} while(!feof(file));
 	
+	table_display(tbl);
 	
-
-	for (int a = 0; a < row_inc; a++) {
-		printf("\n");
-		//printf("%d", a);
-		for (int b = 0; b < cell_max; b++) {
-			// printf("%d-", b);
-			printf("%s\t", table[a][b]);
-		}
-	}
 
 	for (int a = 0; a < row_inc; a++) {
 		for (int b = 0; b < cell_max; b++) {
@@ -87,13 +89,7 @@ char ***LoadTableToMem(const char *fileName)
 	free(table);
 
 	printf("done\n");
-	
-	char temp[20];
-	scanf("%s", temp);
-
-	printf("%s\n", temp);
-
-	
+		
 	fclose(file);
 
 	return table;
