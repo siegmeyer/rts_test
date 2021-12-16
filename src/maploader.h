@@ -8,6 +8,6 @@
 // 	char	***data;
 // } TableData;
 
-char ***LoadTableToMem(const char *fileName);
+Table *LoadTableToMem(const char *fileName);
 void ClearTableFromMem();
 #endif

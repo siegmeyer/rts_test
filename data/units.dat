@@ -1,0 +1,49 @@
+Unit,Race,Size,Supply,Minerals,Gas,Build Time,Armor,HP,Shield
+Battlecruiser,Terran,L,6,400,300,160,3,500,-
+Dropship,Terran,L,2,100,100,50,1,150,-
+Firebat,Terran,S,1,50,25,24,1,50,-
+Ghost,Terran,S,1,25,75,50,0,45,-
+Goliath,Terran,L,2,100,50,40,1,125,-
+Marine,Terran,S,1,50,0,24,0,40,-
+Missile Turret,Terran,L,0,75,0,30,0,200,-
+Science Vessel,Terran,L,2,100,225,80,1,200,-
+SCV,Terran,S,1,50,0,20,0,60,-
+Siege Tank (Siege),Terran,L,2,150,100,50,1,150,-
+Siege Tank (Tank),Terran,L,2,150,100,50,1,150,-
+Vulture,Terran,M,2,75,0,30,0,80,-
+Wraith,Terran,L,2,150,100,60,0,120,-
+Medic,Terran,S,1,50,25,30,1,60,-
+Valkyrie,Terran,L,3,250,125,60,2,200,-
+Arbiter,Protoss,L,4,100,350,160,1,200,150
+Archon,Protoss,L,4,100,300,20,0,10,350
+Carrier,Protoss,L,6,350,250,140,4,300,150
+Dragoon,Protoss,L,2,125,50,40,1,100,80
+High Templar,Protoss,S,2,50,150,50,0,40,40
+Observer,Protoss,S,1,25,75,40,0,40,20
+Photon Cannon,Protoss,L,0,150,0,50,0,100,100
+Probe,Protoss,S,1,50,0,20,0,20,20
+Reaver,Protoss,L,4,200,100,70,0,100,80
+Scout,Protoss,L,3,275,125,80,0,150,100
+Shuttle,Protoss,L,2,200,0,60,1,80,60
+Zealot,Protoss,S,2,100,0,40,1,100,60
+Corsair,Protoss,M,2,150,100,40,1,100,80
+Dark Archon,Protoss,L,4,250,200,20,1,25,200
+Dark Templar,Protoss,S,2,125,100,50,1,80,40
+Broodling,Zerg,S,0,0,0,0,0,30,-
+Defiler,Zerg,M,2,50,150,50,1,80,-
+Drone,Zerg,S,1,50,0,20,0,40,-
+Egg,Zerg,L,0,0,0,0,10,200,-
+Guardian,Zerg,L,2,150,200,40,2,150,-
+Hydralisk,Zerg,M,1,75,25,28,0,80,-
+Infested Terran,Zerg,S,1,100,50,40,0,60,-
+Larva,Zerg,S,0,0,0,0,10,25,-
+Mutalisk,Zerg,S,2,100,100,40,0,120,-
+Overlord,Zerg,L,0,100,0,40,0,200,-
+Queen,Zerg,M,2,100,100,50,0,120,-
+Scourge,Zerg,S,0.5,12,38,30,0,25,-
+Spore Colony,Zerg,L,0,175,0,20,0,400,-
+Sunken Colony,Zerg,L,0,175,0,20,2,300,-
+Ultralisk,Zerg,L,4,200,200,60,1,400,-
+Zergling,Zerg,S,0.5,25,0,28,0,35,-
+Devourer,Zerg,L,2,250,150,40,2,250,-
+Lurker,Zerg,M,2,200,200,40,1,125,-

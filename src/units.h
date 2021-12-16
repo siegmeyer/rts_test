@@ -1,0 +1,17 @@
+#ifndef _UNITS_H
+#define _UNITS_H
+
+enum {
+	UNIT_NAME,
+	UNIT_RACE,
+	UNIT_SIZE,
+	UNIT_SUPPLY,
+	UNIT_MCOST,
+	UNIT_GCOST,
+	UNIT_TIME,
+	UNIT_ARMOR,
+	UNIT_HP,
+	UNIT_SHIELD
+};
+
+#endif

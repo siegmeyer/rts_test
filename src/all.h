@@ -4,7 +4,8 @@
 #include "os.h"
 
 #include "defs.h"
-#include "maploader.h"
 #include "table.h"
+#include "maploader.h"
+#include "units.h"
 
 #endif

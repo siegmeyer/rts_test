@@ -1,3 +1,4 @@
-id	name	is_air	size	health	shield	energy
-1	marine	0	1	45	0	0
-2	firebat	0	1	50	0	0
+id	name	is_air	size	health	shield	energy	lol
+1	marine	0	1	45	0
+2	firebat	0	1	50	0	0	0
+3	medic	0	1	60	0	0	0
