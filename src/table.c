@@ -119,10 +119,41 @@ void table_header_add(Table *tbl, char **cell, size_t length) {
 	}
 }
 
-int table_search(Table *tbl, char *key, char *value, Row **result){
+//
+// Return the col table cell value for the row given by id.
+//
+char *table_get(Table *tbl, int id, char* col){
+	if (tbl == NULL || col == NULL) 	return NULL;
+
+	int col_id = -1;
+
+	for (size_t i = 0; i < tbl->columns->length; i++) {
+		if (strcmp(tbl->columns->cells[i].value, col) == 0) {
+			col_id = i;
+		}
+	}
+
+	if (col_id < 0) {
+		return NULL;
+	}
+
+	Row *cur = tbl->head;
+	for (int i = 0; i < id; i++) {
+		if (cur->next == NULL) break;
+		cur = cur->next;
+	}
+
+	return cur->cells[col_id].value;
+}
+
+//
+// Modify the result arg to contain the first row found that
+// matches the given col and value.
+//
+int table_search(Table *tbl, char *col, char *value, Row **result){
 
 	if (tbl == NULL) 					return TABLE_NULL;
-	if (key == NULL || value == NULL) 	return INVALID_ARGS;
+	if (col == NULL || value == NULL) 	return INVALID_ARGS;
 	if (tbl->columns == NULL) 			return TABLE_NO_COLUMNS;
 
 	int col_id = -1;
@@ -130,7 +161,7 @@ int table_search(Table *tbl, char *key, char *value, Row **result){
 	*result = NULL;
 
 	for (size_t i = 0; i < tbl->columns->length; i++) {
-		if (strcmp(tbl->columns->cells[i].value, key) == 0) {
+		if (strcmp(tbl->columns->cells[i].value, col) == 0) {
 			col_id = i;
 		}
 	}

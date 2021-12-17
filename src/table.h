@@ -8,10 +8,10 @@
 #define INVALID_ARGS			4
 #define TABLE_COLUMN_NOT_FOUND	5
 
-#define FOUND 		0
-#define NOT_FOUND	1
+#define FOUND 					0
+#define NOT_FOUND				1
 
-#define DELIM		','
+#define DELIM					','
 
 typedef struct Cell
 {
@@ -40,6 +40,7 @@ void table_header_add(Table *tbl, char **cell, size_t length);
 
 void table_destroy(Table *tbl);
 void table_display(Table *tbl);
-int table_search(Table *tbl, char* key, char* value, Row **result);
+int table_search(Table *tbl, char* col, char* value, Row **result);
+char *table_get(Table *tbl, int id, char* col);
 
 #endif

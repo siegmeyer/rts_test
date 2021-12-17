@@ -1,4 +1,4 @@
-Unit,Race,Size,Supply,Minerals,Gas,Build Time,Armor,HP,Shield
+unit,race,size,supply,minerals,gas,time,armor,hp,shield
 Battlecruiser,Terran,L,6,400,300,160,3,500,-
 Dropship,Terran,L,2,100,100,50,1,150,-
 Firebat,Terran,S,1,50,25,24,1,50,-
