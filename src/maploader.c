@@ -7,7 +7,7 @@ Table *LoadTableToMem(const char *fileName)
 	int row_inc = 0;
 	int cell_inc = 0;
 	size_t cell_max = 0;
-	Table *tbl;
+	Table *tbl = table_create();
 
 	FILE *file = fopen(fileName, "r");
 	if (file == NULL) {
@@ -15,11 +15,8 @@ Table *LoadTableToMem(const char *fileName)
 		return NULL;
 	}
 
-	tbl = table_create();
-
 	char cell[NUM_CHARS];
 	char **row = (char**)malloc(sizeof(char*) * NUM_COLS);
-	char ***table = (char***)malloc(sizeof(char**) * NUM_ROWS);
 
 	int i = 0;
 	do {
@@ -60,19 +57,22 @@ Table *LoadTableToMem(const char *fileName)
 				} 
 			}
 			
-			table[row_inc] = (char**)malloc(sizeof(char*) * cell_max);
-			memcpy(table[row_inc], row, sizeof(char*) * cell_max);
-
 			if (row_inc == 0) {
-				table_header_add(tbl, table[row_inc], cell_max);
+				table_header_add(tbl, row, cell_max);
 			} 
 			else {
-				table_row_add(tbl, table[row_inc], cell_max);
+				table_row_add(tbl, row, cell_max);
 			}
 
 			row_inc++;
 
+			// Free each cell in the temp row
+			for (int i = 0; i < cell_inc; i++) {
+				free(row[i]);
+			}
+
 			cell_inc = 0;
+
 			// reset the row
 			memset(row, 0, sizeof(char*)* cell_max);
 		}
@@ -81,16 +81,7 @@ Table *LoadTableToMem(const char *fileName)
 		
 	fclose(file);
 
-	// Free up the temp table.
-	for (int a = 0; a < row_inc; a++) {
-		for (int b = 0; b < cell_max; b++) {
-			free(table[a][b]);
-		}
-		free(table[a]);
-	}
-
 	free(row);
-	free(table);
 		
 	return tbl;
 }

@@ -24,13 +24,13 @@ int main() {
 		printf("%s ",search->cells[UNIT_STAT_HP].value);
 	}
 
-	char* tester;
-	time_t start = time(NULL);
-	for (int i = 0; i < 100000000; i++) {
-		tester = table_get(tbl, UNIT_BATTLECRUISER, "time");
-	}
+	// char* tester;
+	// time_t start = time(NULL);
+	// for (int i = 0; i < 100000000; i++) {
+	// 	tester = table_get(tbl, UNIT_BATTLECRUISER, "time");
+	// }
 
-	printf("DONE in %ld seconds", time(NULL) - start);
+	// printf("DONE in %ld seconds", time(NULL) - start);
 	table_destroy(tbl);
 	return 0;
 }
